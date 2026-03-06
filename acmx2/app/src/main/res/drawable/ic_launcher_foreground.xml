@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeColor="#C0FFFFFF"
+        android:pathData="M26,67C34,51 43,36 54,22C65,36 74,51 82,67" />
+    <path android:pathData="M54,22L74,58L54,94L34,58Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="33"
+                android:startY="22"
+                android:endX="76"
+                android:endY="94"
+                android:type="linear">
+                <item android:offset="0" android:color="#FFF46BFF" />
+                <item android:offset="0.5" android:color="#FF7A5CFF" />
+                <item android:offset="1" android:color="#FF00E5FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#14000000"
+        android:pathData="M54,30L67,56L54,82L41,56Z" />
+    <path
+        android:fillColor="#00FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeColor="#E6FFFFFF"
+        android:pathData="M54,34L54,78" />
+    <path
+        android:fillColor="#00FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeColor="#D2FFFFFF"
+        android:pathData="M44,56L64,56" />
+    <path
+        android:fillColor="#00FFFFFF"
+        android:strokeWidth="3"
+        android:strokeColor="#AA00E5FF"
+        android:pathData="M20,56C20,37.2 35.2,22 54,22C72.8,22 88,37.2 88,56C88,74.8 72.8,90 54,90C35.2,90 20,74.8 20,56Z" />
+    <path
+        android:fillColor="#00FFFFFF"
+        android:strokeWidth="2"
+        android:strokeColor="#88FFFFFF"
+        android:pathData="M27,56C27,41.1 39.1,29 54,29C68.9,29 81,41.1 81,56C81,70.9 68.9,83 54,83C39.1,83 27,70.9 27,56Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M54,13L57.2,20.8L65,24L57.2,27.2L54,35L50.8,27.2L43,24L50.8,20.8Z" />
+</vector>

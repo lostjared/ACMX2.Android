@@ -1,0 +1,29 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Android / Gradle outputs
+**/.gradle/
+**/build/
+**/captures/
+**/.cxx/
+**/.externalNativeBuild/
+
+# IDE
+**/.idea/
+*.iml
+
+# Local machine config / signing
+**/local.properties
+**/keystore.properties
+*.jks
+*.keystore
+
+# Android artifacts
+*.apk
+*.aab
+
+# Logs
+*.log
