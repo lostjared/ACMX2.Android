@@ -6,9 +6,9 @@ Project page: https://lostsidedead.biz/acmx2-android.html
 
 ## Version
 
-Current bundled app/runtime version: **v1.7.0**
+Current bundled app/runtime version: **v1.8.0**
 
-The Android host loads the visualizer `ACMX2 Interactive Visualizer v1.7.0` at startup.
+The Android host loads the visualizer `ACMX2 Interactive Visualizer v1.8.0` at startup.
 
 ## What the app is
 
@@ -67,11 +67,11 @@ The app uses a layered runtime:
 
 This design keeps the rendering engine portable while still integrating cleanly with Android-native features.
 
-## v1.7.0 highlights
+## v1.8.0 highlights
 
 Based on the current packaged app/runtime:
 
-- Runtime/versioned boot flow for `v1.7.0`
+- Runtime/versioned boot flow for `v1.8.0`
 - Fullscreen immersive WebView host and local asset loading
 - Custom GLSL ES 3.0 shader editor with compile/apply and templates
 - Multipass shader chain UI (ordered passes, enable/clear workflow)
