@@ -8,6 +8,9 @@ ACMX2 Android is the mobile build of the ACMX2 interactive visualizer. It runs a
 
 Project page: https://lostsidedead.biz/acmx2-android.html
 
+the C++ WebAssembly module code: https://github.com/lostjared/MX2.Graphics.Demo/
+
+
 ## Version
 
 Current bundled app/runtime version: **v1.8.0**
