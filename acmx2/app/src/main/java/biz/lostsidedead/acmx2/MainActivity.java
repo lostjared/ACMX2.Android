@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                         "const dataUrlToPayload=function(value){const text=String(value||'');const comma=text.indexOf(',');return comma>=0?text.slice(comma+1):text;};" +
                         "window.__acmxSaveBlobToAndroid=async function(blob,filename,mimeType){if(!hasVideo())return false;const safeName=filename||('acmx2_'+Date.now()+((mimeType||blob.type||'').indexOf('webm')!==-1?'.webm':'.mp4'));const finalMime=mimeType||blob.type||mimeFromName(safeName,'video/mp4');const chunkSize=1024*1024;window.AndroidInterface.startVideoSave(safeName);for(let start=0;start<blob.size;start+=chunkSize){const chunk=blob.slice(start,start+chunkSize);const base64=await new Promise(function(resolve,reject){const reader=new FileReader();reader.onloadend=function(){resolve(reader.result||'');};reader.onerror=function(){reject(reader.error||new Error('FileReader failed'));};reader.readAsDataURL(chunk);});window.AndroidInterface.appendVideoChunk(dataUrlToPayload(base64));}window.AndroidInterface.finalizeVideoSave(finalMime);return true;};" +
                         "const originalClick=HTMLAnchorElement.prototype.click;" +
-                        "HTMLAnchorElement.prototype.click=function(){const href=this.getAttribute('href')||this.href||'';const filename=this.getAttribute('download')||this.download||'';const lower=String(href).toLowerCase();if(filename&&lower.indexOf('data:image/')===0&&hasImage()){window.AndroidInterface.saveImage(href);return;}if(filename&&(lower.indexOf('blob:')===0||lower.indexOf('data:video/')===0)&&hasVideo()){Promise.resolve().then(async function(){try{const response=await fetch(href);const blob=await response.blob();await window.__acmxSaveBlobToAndroid(blob,filename,blob.type||mimeFromName(filename,'video/mp4'));}catch(error){console.error('Android video save bridge failed',error);}});return;}return originalClick.apply(this,arguments);};" +
+                        "HTMLAnchorElement.prototype.click=function(){const href=this.getAttribute('href')||this.href||'';const filename=this.getAttribute('download')||this.download||'';const lower=String(href).toLowerCase();if(filename&&lower.indexOf('data:image/')===0&&hasImage()){if(window.__acmxSavingImage){return;}window.AndroidInterface.saveImage(href);return;}if(filename&&(lower.indexOf('blob:')===0||lower.indexOf('data:video/')===0)&&hasVideo()){Promise.resolve().then(async function(){try{const response=await fetch(href);const blob=await response.blob();await window.__acmxSaveBlobToAndroid(blob,filename,blob.type||mimeFromName(filename,'video/mp4'));}catch(error){console.error('Android video save bridge failed',error);}});return;}return originalClick.apply(this,arguments);};" +
                         "})();";
 
         myWebView.evaluateJavascript(script, null);
@@ -257,10 +257,16 @@ public class MainActivity extends AppCompatActivity {
      */
     public class WebAppInterface {
         private File tempVideoFile;
+        private volatile boolean isSavingImage = false;
 
         // --- SNAPSHOT SAVING ---
         @JavascriptInterface
         public void saveImage(String base64Data) {
+            if (isSavingImage) {
+                return;
+            }
+            isSavingImage = true;
+            setSaveButtonEnabled(false);
             try {
                 sound.play(MediaActionSound.SHUTTER_CLICK);
                 // Use indexOf to safely strip the data-URL header
@@ -273,6 +279,9 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 showToast("Snapshot failed: " + e.getMessage());
                 notifyProcessingOverlay(false, "Snapshot failed");
+            } finally {
+                isSavingImage = false;
+                setSaveButtonEnabled(true);
             }
         }
 
@@ -315,6 +324,17 @@ public class MainActivity extends AppCompatActivity {
 
         private void showToast(String message) {
             runOnUiThread(() -> Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show());
+        }
+
+        private void setSaveButtonEnabled(boolean enabled) {
+            if (myWebView == null) return;
+            String script = "(function(){" +
+                    "var btns=document.querySelectorAll('[data-action=\"save\"],.save-btn,#saveBtn,#save-btn');" +
+                    "btns.forEach(function(b){b.disabled=" + (!enabled ? "true" : "false") + ";" +
+                    "b.style.opacity=" + (enabled ? "'1'" : "'0.5'") + ";});" +
+                    "window.__acmxSavingImage=" + (!enabled ? "true" : "false") + ";" +
+                    "})();";
+            myWebView.post(() -> myWebView.evaluateJavascript(script, null));
         }
     }
 
