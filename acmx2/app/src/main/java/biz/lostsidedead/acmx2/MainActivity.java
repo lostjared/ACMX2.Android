@@ -110,16 +110,31 @@ public class MainActivity extends AppCompatActivity {
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                return assetLoader.shouldInterceptRequest(request.getUrl());
-            }
+                // 1. Let the AssetLoader fetch the local file
+                WebResourceResponse response = assetLoader.shouldInterceptRequest(request.getUrl());
 
+                // 2. Explicitly patch the MIME types for modern web assets
+                if (response != null && request.getUrl() != null) {
+                    String path = request.getUrl().getPath();
+                    if (path != null) {
+                        String lowerPath = path.toLowerCase();
+                        if (lowerPath.endsWith(".js") || lowerPath.endsWith(".mjs") || lowerPath.endsWith(".worker.js")) {
+                            response.setMimeType("application/javascript");
+                        } else if (lowerPath.endsWith(".wasm")) {
+                            response.setMimeType("application/wasm");
+                        } else if (lowerPath.endsWith(".json")) {
+                            response.setMimeType("application/json");
+                        }
+                    }
+                }
+                return response;
+            }
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 injectAndroidDownloadBridge();
             }
         });
-
         myWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onPermissionRequest(final PermissionRequest request) {

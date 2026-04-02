@@ -116,12 +116,12 @@ cd acmx2
 
 ## Project layout
 
-- `acmx2/app/src/main/java/.../MainActivity.java` — Android host app + JS bridge
-- `acmx2/app/src/main/res/layout/activity_main.xml` — fullscreen WebView layout
-- `acmx2/app/src/main/assets/visualizer/index.html` — JS UI/runtime
-- `acmx2/app/src/main/assets/visualizer/MX_app.js` — Emscripten loader/runtime glue
-- `acmx2/app/src/main/assets/visualizer/MX_app.wasm` — compiled C++ engine
-- `acmx2/app/src/main/assets/visualizer/MX_app.data` — packaged shader/model/data assets
+- `acmx2/app/src/main/java/.../MainActivity.java`  Android host app + JS bridge
+- `acmx2/app/src/main/res/layout/activity_main.xml`  fullscreen WebView layout
+- `acmx2/app/src/main/assets/visualizer/index.html`  JS UI/runtime
+- `acmx2/app/src/main/assets/visualizer/MX_app.js`  Emscripten loader/runtime glue
+- `acmx2/app/src/main/assets/visualizer/MX_app.wasm`  compiled C++ engine
+- `acmx2/app/src/main/assets/visualizer/MX_app.data`  packaged shader/model/data assets
 
 ## Notes
 
