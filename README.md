@@ -1,8 +1,15 @@
 # ACMX2 Android
 
+# Example Output Selfie (converted to GIF)
+![ACMX2_VID_1774725795728 webm_1](https://github.com/user-attachments/assets/3a2779ef-9b75-448e-b427-efd1a9e388db)
+
+
 ACMX2 Android is the mobile build of the ACMX2 interactive visualizer. It runs a local, GPU-accelerated shader/3D visual pipeline inside Android WebView and packages the native visual engine as WebAssembly assets.
 
 Project page: https://lostsidedead.biz/acmx2-android.html
+
+the C++ WebAssembly module code: https://github.com/lostjared/MX2.Graphics.Demo/
+
 
 ## Version
 
